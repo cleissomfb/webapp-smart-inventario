@@ -24,7 +24,7 @@
               </b-row>
             </div>
             <b-row>
-              <b-col cols="2">
+              <b-col sm="12" md="2">
                 <b-form-group label="Data Inclusão:" class="my-3">
                   <b-form-input
                     v-model="inventario.dataInclusao"
@@ -32,7 +32,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="2">
+              <b-col sm="12" md="2">
                 <b-form-group label="Data do Registro:" class="my-3">
                   <b-form-input
                     v-model="inventario.dataRegistro"
@@ -40,7 +40,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Setor/Área:" class="my-3">
                   <b-form-select
                     id="setorArea"
@@ -60,7 +60,7 @@
                   </b-form-select>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Local:" class="my-3">
                   <b-form-input
                     v-model="inventario.local"
@@ -68,7 +68,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="3">
+              <b-col sm="12" md="3">
                 <b-form-group label="Nro Patrimônio:" class="my-3">
                   <b-form-input
                     v-model="inventario.nroPatrimonio"
@@ -76,7 +76,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="9">
+              <b-col sm="12" md="9">
                 <b-form-group label="Nome do Item:" class="my-3">
                   <b-form-input
                     v-model="inventario.nomeItem"
@@ -84,7 +84,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Marca:" class="my-3">
                   <b-form-input
                     v-model="inventario.marca"
@@ -92,7 +92,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Modelo:" class="my-3">
                   <b-form-input
                     v-model="inventario.modelo"
@@ -100,7 +100,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Nro Série:" class="my-3">
                   <b-form-input
                     v-model="inventario.nroSerie"
@@ -108,7 +108,7 @@
                   ></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Categoria:" class="my-3">
                   <b-form-select
                     id="categoria"
@@ -128,7 +128,7 @@
                   </b-form-select>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Estado de Conservação:" class="my-3">
                   <b-form-select
                     id="EstadoConservacao"
@@ -150,7 +150,7 @@
                   </b-form-select>
                 </b-form-group>
               </b-col>
-              <b-col cols="4">
+              <b-col sm="12" md="4">
                 <b-form-group label="Ausência de Etiquetas:" class="my-3">
                   <b-form-select
                     id="ausenciaEtiquetas"
@@ -165,7 +165,7 @@
                   </b-form-select>
                 </b-form-group>
               </b-col>
-              <b-col cols="6">
+              <b-col sm="12" md="6">
                 <b-form-group label="Situação do Item:" class="my-3">
                   <b-form-textarea
                     v-model="inventario.situacaoItem"
@@ -173,14 +173,14 @@
                   ></b-form-textarea>
                 </b-form-group>
               </b-col>
-              <b-col cols="6">
+              <b-col sm="12" md="6">
                 <b-form-group label="Observação:" class="my-3">
                   <b-form-textarea
                     v-model="inventario.obsercacao"
                   ></b-form-textarea>
                 </b-form-group>
               </b-col>
-              <b-col cols="12" class="d-flex justify-content-end">
+              <b-col sm="12" md="12" class="d-flex justify-content-end">
                 <b-button
                   @click="salvarInventario()"
                   class="mt-3 mx-3"

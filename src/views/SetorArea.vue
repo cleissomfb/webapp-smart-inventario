@@ -47,13 +47,13 @@
         setorArea.id == undefined ? "Adicionar setor/área" : "Editar setor/área"
       }}</template>
       <b-row>
-        <b-col cols="12">
+        <b-col sm="12" md="12">
           <b-form-group>
             <label for="name">Descrição:</label>
             <b-form-input v-model="setorArea.descricao"></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col cols="12">
+        <b-col sm="12" md="12">
           <b-button @click="salvarSetorArea()" class="mt-3" variant="success"
             ><b-icon icon="check"></b-icon>Salvar</b-button
           >

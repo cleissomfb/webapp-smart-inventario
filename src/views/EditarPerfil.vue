@@ -13,13 +13,13 @@
               </b-row>
             </div>
             <b-row>
-              <b-col cols="12">
+              <b-col sm="12" md="12">
                 <b-form-group>
                   <label for="name">Nome:</label>
                   <b-form-input v-model="perfil.nome"></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col cols="12">
+              <b-col sm="12" md="12">
                 <b-button
                   @click="atualizarPerfil()"
                   class="mt-3"

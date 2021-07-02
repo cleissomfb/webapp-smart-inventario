@@ -47,13 +47,13 @@
         usuario.id == undefined ? "Adicionar usuário" : "Editar usuário"
       }}</template>
       <b-row>
-        <b-col cols="12">
+        <b-col sm="12" md="12">
           <b-form-group>
             <label for="name">Nome:</label>
             <b-form-input v-model="usuario.nome"></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col cols="12">
+        <b-col sm="12" md="12">
           <b-button @click="salvarUsuario()" class="mt-3" variant="success"
             ><b-icon icon="check"></b-icon>Salvar</b-button
           >
