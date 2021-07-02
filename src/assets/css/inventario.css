@@ -1,0 +1,10 @@
+.background-inventario {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  background-image: url(../imagens/bg-pencil.jpeg);
+  background-attachment: fixed;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

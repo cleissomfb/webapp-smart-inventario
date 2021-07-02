@@ -1,0 +1,35 @@
+.navbar {
+  background-color: #2ad2b3 !important;
+  color: #ffffff !important;
+  /* position: fixed !important; */
+  width: 100%;
+  top: 0px;
+  z-index: 9999;
+}
+.navbar .navbar-nav .nav-item .nav-link {
+  padding: 0;
+  margin: 0;
+}
+.navbar .navbar-nav .nav-item .nav-link img {
+  width: auto;
+  height: 50px;
+}
+
+.nome-usuario {
+  color: white;
+  font-weight: bold;
+}
+
+.aparecer-tree-dots {
+  display: none !important;
+}
+
+.aparecer-nome-usuario {
+  display: inline-block  !important;
+}
+
+.border-separador {
+  border-bottom: solid 1px gray;
+  width: 85%;
+  margin-left: 10px;
+}

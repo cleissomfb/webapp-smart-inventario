@@ -1,0 +1,25 @@
+@media only screen and (max-width: 800px) {
+  .aparecer-tree-dots {
+    display: inline-block !important;
+  }
+
+  .tree-dots {
+    color: white;
+  }
+
+  .aparecer-nome-usuario {
+    display: none !important;
+  }
+
+  html
+    body
+    div#app
+    div.background-pagina-inicial
+    nav.navbar.navbar-light.navbar-expand
+    div#nav-collapse.d-flex.justify-content-between.navbar-collapse.collapse
+    ul.navbar-nav
+    li#__BVID__12.nav-item.b-nav-dropdown.dropdown.show
+    ul.dropdown-menu.dropdown-menu-right.show {
+    margin-left: -120px !important;
+  }
+}
