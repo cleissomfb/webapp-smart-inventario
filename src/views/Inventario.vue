@@ -63,21 +63,17 @@ export default {
           thStyle: { width: "15% !important" },
         },
         {
-          key: "patrimonio",
+          key: "registerNumber",
           label: "Patrimônio",
           thStyle: { width: "35% !important" },
         },
         {
-          key: "nomeItem",
+          key: "itemName",
           label: "Nome do Item",
           thStyle: { width: "50% !important" },
         },
       ],
-      inventarios: [
-        { id: 1, patrimonio: "12345", nomeItem: "Notebook Gamer" },
-        { id: 2, patrimonio: "54321", nomeItem: "PC Gamer" },
-        { id: 3, patrimonio: "52431", nomeItem: "Monitor Gamer" },
-      ],
+      inventarios: [],
     };
   },
   methods: {
@@ -154,7 +150,7 @@ export default {
     },
   },
   mounted() {
-    // this.findInventario();
+    this.findInventario();
   },
 };
 </script>

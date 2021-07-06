@@ -21,8 +21,10 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
 // Import do VueX
-import Vuex from "vuex";
-Vue.use(Vuex);
+// import Vuex from "vuex";
+// Vue.use(Vuex);
+
+import { store } from "@/store";
 
 /* Vue Notification */
 import Notifications from "vue-notification";
@@ -36,6 +38,7 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 new Vue({
+  store,
   router,
   render: (h) => h(App),
 }).$mount("#app");

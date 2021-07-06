@@ -16,7 +16,7 @@
               <b-col sm="12" md="12">
                 <b-form-group>
                   <label for="name">Nome:</label>
-                  <b-form-input v-model="perfil.nome"></b-form-input>
+                  <b-form-input v-model="perfil.name"></b-form-input>
                 </b-form-group>
               </b-col>
               <b-col sm="12" md="12">
@@ -40,6 +40,10 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
+import { usuarioService } from "@/services";
+import { mapGetters } from "vuex";
+import { store } from "@/store";
+
 export default {
   name: "EditarPerfil",
   components: {
@@ -50,13 +54,51 @@ export default {
       perfil: {},
     };
   },
+  computed: {
+    ...mapGetters({
+      usuario: "usuario/usuario",
+      idUsuario: "usuario/idUsuario",
+    }),
+  },
   methods: {
-    atualizarPerfil() {},
+    atualizarPerfil() {
+      const userAux = this.usuario;
+      userAux.name = this.perfil.name;
+      userAux.id = this.idUsuario;
+
+      usuarioService
+        .patch(this.perfil)
+        .then(() => {
+          this.showSuccessNotification("Usuário editado com sucesso.");
+          store.dispatch("usuario/setUsuario", userAux);
+          this.$router.push("/paginaInicial");
+        })
+        .catch((error) => {
+          this.showErrorNotification(error.response);
+        });
+    },
     cancelar() {
       this.$router.push({
         path: "/paginaInicial",
       });
     },
+    showSuccessNotification(msg) {
+      this.$notify({
+        title: "Confirmação",
+        text: msg,
+        type: "success",
+      });
+    },
+    showErrorNotification(error) {
+      this.$notify({
+        title: "Error",
+        text: error.response ? error.response.data.message : error,
+        type: "error",
+      });
+    },
+  },
+  mounted() {
+    this.perfil = this.usuario;
   },
 };
 </script>

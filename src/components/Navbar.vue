@@ -16,8 +16,8 @@
         <b-nav-item-dropdown right>
           <template #button-content>
             <span class="aparecer-nome-usuario nome-usuario"
-              ><b-icon icon="person-fill" class="margin-icon"></b-icon>Nome do
-              Usuário</span
+              ><b-icon icon="person-fill" class="margin-icon"></b-icon
+              >{{ usuario.name }}</span
             >
             <b-icon-three-dots-vertical class="aparecer-tree-dots tree-dots" />
           </template>
@@ -31,10 +31,20 @@
 </template>
 
 <script>
+import { signOutUser } from "@/auth";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navbar",
   data() {
-    return {};
+    return {
+      user: "",
+    };
+  },
+  computed: {
+    ...mapGetters({
+      usuario: "usuario/usuario",
+    }),
   },
   methods: {
     editarPerfil() {
@@ -43,10 +53,19 @@ export default {
       });
     },
     logout() {
-      this.$router.push({
-        path: "/",
+      this.$store.dispatch("usuario/clear").then(() => {
+        signOutUser();
+        this.$router.push("/");
       });
     },
+  },
+  mounted() {
+    if (this.usuario == undefined) {
+      this.$store.dispatch("usuario/clear").then(() => {
+        signOutUser();
+        this.$router.push("/");
+      });
+    }
   },
 };
 </script>

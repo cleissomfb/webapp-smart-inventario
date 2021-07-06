@@ -1,3 +1,4 @@
+const baseURL = process.env.VUE_APP_API_LOCATION;
 import Vue from "vue";
 
 import { authHeader } from "../helpers";
@@ -15,7 +16,7 @@ function find() {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(`/api/setorArea/`, requestCfg);
+  return Vue.axios.get(baseURL + `/api/setorArea/`, requestCfg);
 }
 
 function getById(idSetorArea) {
@@ -24,7 +25,7 @@ function getById(idSetorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(`/api/setorArea/${idSetorArea}`, requestCfg);
+  return Vue.axios.get(baseURL + `/api/setorArea/${idSetorArea}`, requestCfg);
 }
 
 function save(setorArea) {
@@ -33,7 +34,7 @@ function save(setorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.post(`/api/setorArea`, setorArea, requestCfg);
+  return Vue.axios.post(baseURL + `/api/setorArea`, setorArea, requestCfg);
 }
 
 function _delete(idSetorArea) {
@@ -42,5 +43,5 @@ function _delete(idSetorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.delete(`/api/setorArea/${idSetorArea}`, requestCfg);
+  return Vue.axios.delete(baseURL + `/api/setorArea/${idSetorArea}`, requestCfg);
 }

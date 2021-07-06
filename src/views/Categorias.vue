@@ -91,11 +91,7 @@ export default {
           thStyle: { width: "90% !important" },
         },
       ],
-      categorias: [
-        { id: 1, descricao: "Eletrónico" },
-        { id: 2, descricao: "Móveis" },
-        { id: 3, descricao: "Veículos" },
-      ],
+      categorias: [],
       categoria: {},
       show: false,
     };

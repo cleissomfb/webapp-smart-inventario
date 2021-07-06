@@ -12,6 +12,8 @@ import Categorias from "../views/Categorias";
 import SetorArea from "../views/SetorArea";
 import Usuarios from "../views/Usuarios";
 
+import { isSignedInUser } from "../auth";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,40 +31,112 @@ const routes = [
     path: "/paginaInicial",
     name: "PaginaIncial",
     component: PaginaInicial,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      // next("/");
+    },
   },
   {
     path: "/editarPerfil",
     name: "EditarPerfil",
     component: EditarPerfil,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/inventario",
     name: "Inventario",
     component: Inventario,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/inventario/novoInventario",
     component: InventarioEdit,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/inventario/:idInventario",
     name: "InventarioEdit",
     component: InventarioEdit,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/categorias",
     name: "Categoria",
     component: Categorias,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/setorArea",
     name: "SetorArea",
     component: SetorArea,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
   {
     path: "/usuarios",
     name: "Usuarios",
     component: Usuarios,
+    beforeEnter(_, __, next) {
+      // Impede usuários não assinados
+      if (isSignedInUser()) {
+        // de acessar a página Home.
+        next();
+        return;
+      }
+      next("/");
+    },
   },
 ];
 
