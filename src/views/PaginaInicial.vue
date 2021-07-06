@@ -63,7 +63,7 @@
             >
           </div>
         </b-col>
-        <b-col sm="12" md="12">
+        <b-col sm="12" md="12" v-if="usuario.role == 'admin'">
           <div class="mt-3">
             <b-button
               @click="clickUsuarios"
@@ -83,6 +83,7 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PaginaInicial",
@@ -92,6 +93,11 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapGetters({
+      usuario: "usuario/usuario",
+    }),
+  },
   methods: {
     clickInventario() {
       this.$router.push({
@@ -100,6 +106,7 @@ export default {
     },
     clickCadastros() {
       this.$bvModal.show("modal-cadastro");
+      console.log(this.usuario);
     },
     clickCategorias() {
       this.$router.push({

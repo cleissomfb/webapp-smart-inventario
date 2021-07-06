@@ -191,6 +191,12 @@ export default {
             this.showErrorNotification(error.response);
           });
       } else {
+        if (this.checkAdmin) {
+          this.usuario.role = "admin";
+        } else {
+          this.usuario.role = "user";
+        }
+        
         usuarioService
           .patch(this.usuario)
           .then(() => {
