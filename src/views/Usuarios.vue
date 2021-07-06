@@ -93,8 +93,10 @@
 
 <script>
 import { usuarioService } from "@/services";
-
 import Navbar from "../components/Navbar.vue";
+import { mapGetters } from "vuex";
+import { store } from "@/store";
+
 export default {
   name: "Usuario",
   components: {
@@ -120,13 +122,19 @@ export default {
       checkAdmin: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      // usuario: "usuario/usuario",
+      idUsuario: "usuario/idUsuario",
+    }),
+  },
   methods: {
     addUsuario() {
       this.usuario = {};
+      this.checkAdmin = false;
       this.$bvModal.show("modal-usuario");
     },
     editUsuario(idUsuario) {
-      console.log(idUsuario);
       this.$bvModal.show("modal-usuario");
       if (idUsuario) {
         let row = this.usuarios.filter((data) => data.id == idUsuario);
@@ -175,11 +183,13 @@ export default {
     },
     salvarUsuario() {
       if (this.usuario.id == undefined) {
+        this.usuario.role = undefined;
         if (this.checkAdmin) {
           this.usuario.role = "admin";
         } else {
           this.usuario.role = "user";
         }
+
         usuarioService
           .save(this.usuario)
           .then(() => {
@@ -191,24 +201,27 @@ export default {
             this.showErrorNotification(error.response);
           });
       } else {
+        this.usuario.role = undefined;
         if (this.checkAdmin) {
           this.usuario.role = "admin";
         } else {
           this.usuario.role = "user";
         }
-        
+        console.log(this.usuario.role);
         usuarioService
           .patch(this.usuario)
-          .then(() => {
+          .then((response) => {
             this.findUsuarios();
             this.$bvModal.hide("modal-usuario");
             this.showSuccessNotification("Usuário alterado com sucesso.");
 
             let usuarioSessao = JSON.parse(localStorage.getItem("usuario"));
-            console.log(usuarioSessao);
             usuarioSessao.name = this.usuario.name;
 
-            localStorage.setItem("usuario", JSON.stringify(usuarioSessao));
+            if (this.idUsuario == response.data.id) {
+              store.dispatch("usuario/setUsuario", usuarioSessao);
+              localStorage.setItem("usuario", JSON.stringify(usuarioSessao));
+            }
           })
           .catch((error) => {
             this.showErrorNotification(error.response);
@@ -223,7 +236,6 @@ export default {
       usuarioService
         .find()
         .then((response) => {
-          console.log(response.data);
           this.usuarios = response.data.results;
           this.show = false;
         })
@@ -241,7 +253,6 @@ export default {
       });
     },
     showErrorNotification(error) {
-      console.log(error);
       this.$notify({
         title: "Error",
         text: error.response ? error.response.data.message : error,

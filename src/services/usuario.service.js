@@ -49,7 +49,7 @@ function patch(usuario) {
 
   usuario.isEmailVerified = undefined;
   usuario.id = undefined;
-  usuario.role = undefined;
+  // usuario.role = undefined;
 
   return Vue.axios.patch(baseURL + `/users/${idUser}`, usuario, requestCfg);
 }
