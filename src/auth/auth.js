@@ -3,15 +3,15 @@ import request from "./request";
 import { store } from "@/store";
 
 export async function signInUser(email, password) {
-  await request("POST", "/auth/login", {
+  await request("POST", "/auth", {
     email,
     password,
   }).then((data) => {
     if (data) {
-      localStorage.setItem("token", JSON.stringify(data.tokens));
+      localStorage.setItem("token", JSON.stringify(data.token));
       localStorage.setItem("usuario", JSON.stringify(data.user));
       store.dispatch("usuario/setUsuario", data.user);
-      store.dispatch("usuario/setIdUsuario", data.user.id);
+      store.dispatch("usuario/setIdUsuario", data.user._id);
     }
   });
 }

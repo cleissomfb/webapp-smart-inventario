@@ -8,7 +8,7 @@ export const inventarioService = {
   find,
   getById,
   save,
-  patch,
+  put,
   delete: _delete,
 };
 
@@ -39,13 +39,13 @@ function save(inventario) {
   return Vue.axios.post(baseURL + `/inventories`, inventario, requestCfg);
 }
 
-function patch(inventario) {
+function put(inventario) {
   const requestCfg = {
-    method: "PATCH",
+    method: "PUT",
     headers: authHeader(),
   };
 
-  return Vue.axios.patch(baseURL + `/inventories`, inventario, requestCfg);
+  return Vue.axios.put(baseURL + `/inventories`, inventario, requestCfg);
 }
 
 function _delete(idInventario) {

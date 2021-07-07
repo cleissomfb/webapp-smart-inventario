@@ -64,10 +64,10 @@ export default {
     atualizarPerfil() {
       const userAux = this.usuario;
       userAux.name = this.perfil.name;
-      userAux.id = this.idUsuario;
+      userAux._id = this.idUsuario;
 
       usuarioService
-        .patch(this.perfil)
+        .put(this.perfil)
         .then(() => {
           this.showSuccessNotification("Usuário editado com sucesso.");
           store.dispatch("usuario/setUsuario", userAux);

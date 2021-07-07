@@ -8,7 +8,7 @@ export const usuarioService = {
   find,
   getById,
   save,
-  patch,
+  put,
   delete: _delete,
 };
 
@@ -39,19 +39,19 @@ function save(usuario) {
   return Vue.axios.post(baseURL + `/users`, usuario, requestCfg);
 }
 
-function patch(usuario) {
+function put(usuario) {
   const requestCfg = {
-    method: "PATCH",
+    method: "PUT",
     headers: authHeader(),
   };
 
-  const idUser = usuario.id;
+  const idUser = usuario._id;
 
   usuario.isEmailVerified = undefined;
-  usuario.id = undefined;
+  usuario._id = undefined;
   // usuario.role = undefined;
 
-  return Vue.axios.patch(baseURL + `/users/${idUser}`, usuario, requestCfg);
+  return Vue.axios.put(baseURL + `/users/${idUser}`, usuario, requestCfg);
 }
 
 function _delete(idUsuario) {

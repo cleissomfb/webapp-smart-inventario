@@ -26,13 +26,13 @@
               empty-text="Não há usuários disponíveis."
             >
               <template v-slot:cell(actions)="row">
-                <b-button class="m-1" @click="editUsuario(row.item.id)">
+                <b-button class="m-1" @click="editUsuario(row.item._id)">
                   <b-icon icon="pencil-fill"></b-icon>
                 </b-button>
                 <b-button
                   class="m-1"
                   variant="danger"
-                  @click="deleteUsuario(row.item.id)"
+                  @click="deleteUsuario(row.item._id)"
                 >
                   <b-icon icon="trash"></b-icon>
                 </b-button>
@@ -59,7 +59,7 @@
             <b-form-input v-model="usuario.email" type="email"></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col sm="12" md="12" v-if="usuario.id == undefined">
+        <b-col sm="12" md="12" v-if="password == true">
           <b-form-group>
             <label for="name">Senha:</label>
             <b-form-input
@@ -120,6 +120,7 @@ export default {
       usuario: {},
       show: false,
       checkAdmin: false,
+      password: true,
     };
   },
   computed: {
@@ -132,16 +133,19 @@ export default {
     addUsuario() {
       this.usuario = {};
       this.checkAdmin = false;
+      this.password = true;
       this.$bvModal.show("modal-usuario");
     },
     editUsuario(idUsuario) {
       this.$bvModal.show("modal-usuario");
       if (idUsuario) {
-        let row = this.usuarios.filter((data) => data.id == idUsuario);
+        let row = this.usuarios.filter((data) => data._id == idUsuario);
         if (row != null) {
           this.usuario = row[0];
           console.log("usuario=>", this.usuario);
           this.$bvModal.show("modal-usuario");
+
+          this.password = false;
 
           if (this.usuario.role == "admin") {
             this.checkAdmin = true;
@@ -182,7 +186,7 @@ export default {
         });
     },
     salvarUsuario() {
-      if (this.usuario.id == undefined) {
+      if (this.usuario._id == undefined) {
         this.usuario.role = undefined;
         if (this.checkAdmin) {
           this.usuario.role = "admin";
@@ -207,9 +211,8 @@ export default {
         } else {
           this.usuario.role = "user";
         }
-        console.log(this.usuario.role);
         usuarioService
-          .patch(this.usuario)
+          .put(this.usuario)
           .then((response) => {
             this.findUsuarios();
             this.$bvModal.hide("modal-usuario");
@@ -218,7 +221,7 @@ export default {
             let usuarioSessao = JSON.parse(localStorage.getItem("usuario"));
             usuarioSessao.name = this.usuario.name;
 
-            if (this.idUsuario == response.data.id) {
+            if (this.idUsuario == response.data._id) {
               store.dispatch("usuario/setUsuario", usuarioSessao);
               localStorage.setItem("usuario", JSON.stringify(usuarioSessao));
             }
@@ -236,7 +239,7 @@ export default {
       usuarioService
         .find()
         .then((response) => {
-          this.usuarios = response.data.results;
+          this.usuarios = response.data;
           this.show = false;
         })
         .catch((error) => {
