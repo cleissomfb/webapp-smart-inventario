@@ -8,6 +8,7 @@ export const categoriaService = {
   find,
   getById,
   save,
+  put,
   delete: _delete,
 };
 
@@ -17,7 +18,7 @@ function find() {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(baseURL + `/api/categorias/`, requestCfg);
+  return Vue.axios.get(baseURL + `/categories`, requestCfg);
 }
 
 function getById(idCategoria) {
@@ -26,7 +27,7 @@ function getById(idCategoria) {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(baseURL + `/api/categorias/${idCategoria}`, requestCfg);
+  return Vue.axios.get(baseURL + `/categories/${idCategoria}`, requestCfg);
 }
 
 function save(categoria) {
@@ -35,7 +36,20 @@ function save(categoria) {
     headers: authHeader(),
   };
 
-  return Vue.axios.post(baseURL + `/api/categorias`, categoria, requestCfg);
+  return Vue.axios.post(baseURL + `/categories`, categoria, requestCfg);
+}
+
+function put(categoria) {
+  const requestCfg = {
+    method: "PUT",
+    headers: authHeader(),
+  };
+
+  return Vue.axios.put(
+    baseURL + `/categories/${categoria._id}`,
+    categoria,
+    requestCfg
+  );
 }
 
 function _delete(idCategoria) {
@@ -44,8 +58,5 @@ function _delete(idCategoria) {
     headers: authHeader(),
   };
 
-  return Vue.axios.delete(
-    baseURL + `/api/categorias/${idCategoria}`,
-    requestCfg
-  );
+  return Vue.axios.delete(baseURL + `/categories/${idCategoria}`, requestCfg);
 }

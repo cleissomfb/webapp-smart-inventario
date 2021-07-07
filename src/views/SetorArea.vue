@@ -26,13 +26,13 @@
               empty-text="Não há setor/área disponível."
             >
               <template v-slot:cell(actions)="row">
-                <b-button class="m-1" @click="editSetorArea(row.item.id)">
+                <b-button class="m-1" @click="editSetorArea(row.item._id)">
                   <b-icon icon="pencil-fill"></b-icon>
                 </b-button>
                 <b-button
                   class="m-1"
                   variant="danger"
-                  @click="deleteSetorArea(row.item.id)"
+                  @click="deleteSetorArea(row.item._id)"
                 >
                   <b-icon icon="trash"></b-icon>
                 </b-button>
@@ -50,7 +50,7 @@
         <b-col sm="12" md="12">
           <b-form-group>
             <label for="name">Descrição:</label>
-            <b-form-input v-model="setorArea.descricao"></b-form-input>
+            <b-form-input v-model="setorArea.description"></b-form-input>
           </b-form-group>
         </b-col>
         <b-col sm="12" md="12">
@@ -84,16 +84,12 @@ export default {
           thStyle: { width: "15% !important" },
         },
         {
-          key: "descricao",
+          key: "description",
           label: "Descrição",
           thStyle: { width: "90% !important" },
         },
       ],
-      setorAreas: [
-        { id: 1, descricao: "TI" },
-        { id: 2, descricao: "Financeiro" },
-        { id: 3, descricao: "ADM" },
-      ],
+      setorAreas: [],
       setorArea: {},
       show: false,
     };
@@ -104,11 +100,10 @@ export default {
       this.$bvModal.show("modal-setor-area");
     },
     editSetorArea(idSetorArea) {
-      console.log(idSetorArea);
       this.$bvModal.show("modal-setor-area");
 
       if (idSetorArea) {
-        let row = this.setorAreas.filter((data) => data.id == idSetorArea);
+        let row = this.setorAreas.filter((data) => data._id == idSetorArea);
         if (row != null) {
           this.setorArea = row[0];
           console.log("setorArea=>", this.setorArea);
@@ -138,7 +133,7 @@ export default {
               .then(() => {
                 this.findSetorArea();
                 this.showSuccessNotification(
-                  "Setor/area incluída com sucesso."
+                  "Setor/area deletada com sucesso."
                 );
               })
               .catch((error) => {
@@ -148,16 +143,29 @@ export default {
         });
     },
     salvarSetorArea() {
-      setorAreaService
-        .save(this.setorArea)
-        .then(() => {
-          this.findSetorArea();
-          this.$bvModal.hide("modal-setor-area");
-          this.showSuccessNotification("Setor/área adicionada com sucesso.");
-        })
-        .catch((error) => {
-          this.showErrorNotification(error.response);
-        });
+      if (this.setorArea._id == undefined) {
+        setorAreaService
+          .save(this.setorArea)
+          .then(() => {
+            this.findSetorArea();
+            this.$bvModal.hide("modal-setor-area");
+            this.showSuccessNotification("Setor/área adicionada com sucesso.");
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
+          });
+      } else {
+        setorAreaService
+          .put(this.setorArea)
+          .then(() => {
+            this.findSetorArea();
+            this.$bvModal.hide("modal-setor-area");
+            this.showSuccessNotification("Setor/área editado com sucesso.");
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
+          });
+      }
     },
     cancelar() {
       this.$bvModal.hide("modal-setor-area");
@@ -192,7 +200,7 @@ export default {
     },
   },
   mounted() {
-    // this.findSetorArea();
+    this.findSetorArea();
   },
 };
 </script>

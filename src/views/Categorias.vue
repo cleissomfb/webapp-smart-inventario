@@ -26,13 +26,13 @@
               empty-text="Não há categorias disponíveis."
             >
               <template v-slot:cell(actions)="row">
-                <b-button class="m-1" @click="editCategoria(row.item.id)">
+                <b-button class="m-1" @click="editCategoria(row.item._id)">
                   <b-icon icon="pencil-fill"></b-icon>
                 </b-button>
                 <b-button
                   class="m-1"
                   variant="danger"
-                  @click="deleteCategoria(row.item.id)"
+                  @click="deleteCategoria(row.item._id)"
                 >
                   <b-icon icon="trash"></b-icon>
                 </b-button>
@@ -52,7 +52,7 @@
         <b-col sm="12" md="12">
           <b-form-group>
             <label for="name">Descrição:</label>
-            <b-form-input v-model="categoria.descricao"></b-form-input>
+            <b-form-input v-model="categoria.description"></b-form-input>
           </b-form-group>
         </b-col>
         <b-col sm="12" md="12">
@@ -86,7 +86,7 @@ export default {
           thStyle: { width: "15% !important" },
         },
         {
-          key: "descricao",
+          key: "description",
           label: "Descrição",
           thStyle: { width: "90% !important" },
         },
@@ -103,7 +103,7 @@ export default {
     },
     editCategoria(idCategoria) {
       if (idCategoria) {
-        let row = this.categorias.filter((data) => data.id == idCategoria);
+        let row = this.categorias.filter((data) => data._id == idCategoria);
         if (row != null) {
           this.categoria = row[0];
           console.log("categoria=>", this.categoria);
@@ -132,7 +132,7 @@ export default {
               .delete(idCategoria)
               .then(() => {
                 this.findCategoria();
-                this.showSuccessNotification("Categoria incluída com sucesso.");
+                this.showSuccessNotification("Categoria deletada com sucesso.");
               })
               .catch((error) => {
                 this.showErrorNotification(error.response);
@@ -141,16 +141,29 @@ export default {
         });
     },
     salvarCategoria() {
-      categoriaService
-        .save(this.categoria)
-        .then(() => {
-          this.findCategoria();
-          this.$bvModal.hide("modal-categoria");
-          this.showSuccessNotification("Categoria ativo incluída com sucesso.");
-        })
-        .catch((error) => {
-          this.showErrorNotification(error.response);
-        });
+      if (this.categoria._id == undefined) {
+        categoriaService
+          .save(this.categoria)
+          .then(() => {
+            this.findCategoria();
+            this.$bvModal.hide("modal-categoria");
+            this.showSuccessNotification("Categoria incluída com sucesso.");
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
+          });
+      } else {
+        categoriaService
+          .put(this.categoria)
+          .then(() => {
+            this.findCategoria();
+            this.$bvModal.hide("modal-categoria");
+            this.showSuccessNotification("Categoria editada com sucesso.");
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
+          });
+      }
     },
     cancelar() {
       this.$bvModal.hide("modal-categoria");
@@ -185,7 +198,7 @@ export default {
     },
   },
   mounted() {
-    // this.findCategoria();
+    this.findCategoria();
   },
 };
 </script>

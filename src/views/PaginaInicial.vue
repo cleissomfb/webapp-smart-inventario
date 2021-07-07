@@ -63,7 +63,7 @@
             >
           </div>
         </b-col>
-        <b-col sm="12" md="12" v-if="usuario.role == 'admin'">
+        <b-col sm="12" md="12" v-if="checkAdmin == 'admin'">
           <div class="mt-3">
             <b-button
               @click="clickUsuarios"
@@ -91,7 +91,9 @@ export default {
     Navbar,
   },
   data() {
-    return {};
+    return {
+      checkAdmin: null,
+    };
   },
   computed: {
     ...mapGetters({
@@ -123,6 +125,9 @@ export default {
         path: "/usuarios",
       });
     },
+  },
+  mounted() {
+    this.checkAdmin = this.usuario.role;
   },
 };
 </script>

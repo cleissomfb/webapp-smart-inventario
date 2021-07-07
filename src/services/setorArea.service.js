@@ -7,6 +7,7 @@ export const setorAreaService = {
   find,
   getById,
   save,
+  put,
   delete: _delete,
 };
 
@@ -16,7 +17,7 @@ function find() {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(baseURL + `/api/setorArea/`, requestCfg);
+  return Vue.axios.get(baseURL + `/departments`, requestCfg);
 }
 
 function getById(idSetorArea) {
@@ -25,7 +26,7 @@ function getById(idSetorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.get(baseURL + `/api/setorArea/${idSetorArea}`, requestCfg);
+  return Vue.axios.get(baseURL + `/departments/${idSetorArea}`, requestCfg);
 }
 
 function save(setorArea) {
@@ -34,7 +35,20 @@ function save(setorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.post(baseURL + `/api/setorArea`, setorArea, requestCfg);
+  return Vue.axios.post(baseURL + `/departments`, setorArea, requestCfg);
+}
+
+function put(setorArea) {
+  const requestCfg = {
+    method: "POST",
+    headers: authHeader(),
+  };
+
+  return Vue.axios.put(
+    baseURL + `/departments/${setorArea._id}`,
+    setorArea,
+    requestCfg
+  );
 }
 
 function _delete(idSetorArea) {
@@ -43,5 +57,5 @@ function _delete(idSetorArea) {
     headers: authHeader(),
   };
 
-  return Vue.axios.delete(baseURL + `/api/setorArea/${idSetorArea}`, requestCfg);
+  return Vue.axios.delete(baseURL + `/departments/${idSetorArea}`, requestCfg);
 }
