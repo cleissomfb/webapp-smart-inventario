@@ -29,7 +29,7 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
-            <b-col
+            <!-- <b-col
               sm="12"
               md="12"
               class="my-2 d-flex d-flex justify-content-end"
@@ -37,7 +37,7 @@
               <a href="/verificarEmail"
                 ><small class="text-secondary">Esqueci minha senha</small></a
               >
-            </b-col>
+            </b-col> -->
             <b-col sm="12" md="12">
               <b-button type="submit" class="btn-home mt-2" variant="primary"
                 ><b-icon icon="person-fill" class="margin-icon"></b-icon

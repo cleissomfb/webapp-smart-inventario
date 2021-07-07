@@ -36,6 +36,10 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 
+// Import das maskaras de input
+import VueMask from "v-mask";
+Vue.use(VueMask);
+
 Vue.config.productionTip = false;
 
 new Vue({
