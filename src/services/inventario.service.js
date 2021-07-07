@@ -45,7 +45,11 @@ function put(inventario) {
     headers: authHeader(),
   };
 
-  return Vue.axios.put(baseURL + `/inventories`, inventario, requestCfg);
+  return Vue.axios.put(
+    baseURL + `/inventories/${inventario._id}`,
+    inventario,
+    requestCfg
+  );
 }
 
 function _delete(idInventario) {

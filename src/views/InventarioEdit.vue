@@ -10,13 +10,13 @@
                 <b-col cols="10">
                   <h5
                     class="primary mt-1"
-                    v-if="inventario.id == null || inventario.id == undefined"
+                    v-if="inventario._id == null || inventario._id == undefined"
                   >
                     Adicionar Inventário
                   </h5>
                   <h5
                     class="primary mt-1"
-                    v-if="inventario.id != null || inventario.id != undefined"
+                    v-if="inventario._id != null || inventario._id != undefined"
                   >
                     Editar Inventário
                   </h5>
@@ -24,19 +24,12 @@
               </b-row>
             </div>
             <b-row>
-              <b-col sm="12" md="2">
-                <b-form-group label="Data Inclusão:" class="my-3">
-                  <b-form-input
-                    v-model="inventario.dataInclusao"
-                    type="date"
-                  ></b-form-input>
-                </b-form-group>
-              </b-col>
-              <b-col sm="12" md="2">
+              <b-col sm="12" md="4">
                 <b-form-group label="Data do Registro:" class="my-3">
                   <b-form-input
-                    v-model="inventario.dataRegistro"
-                    type="date"
+                    v-model="date"
+                    type="text"
+                    disabled
                   ></b-form-input>
                 </b-form-group>
               </b-col>
@@ -45,7 +38,7 @@
                   <b-form-select
                     id="setorArea"
                     name="setorArea"
-                    v-model="inventario.idSetorArea"
+                    v-model="inventario.department"
                   >
                     <b-form-select-option :value="null"
                       >Selecione um setor/área</b-form-select-option
@@ -53,9 +46,9 @@
                     <b-form-select-option
                       v-for="(setorArea, idx) in setorAreas"
                       :key="idx"
-                      :value="setorArea.id"
+                      :value="setorArea._id"
                     >
-                      {{ setorArea.descricao }}
+                      {{ setorArea.description }}
                     </b-form-select-option>
                   </b-form-select>
                 </b-form-group>
@@ -63,7 +56,7 @@
               <b-col sm="12" md="4">
                 <b-form-group label="Local:" class="my-3">
                   <b-form-input
-                    v-model="inventario.local"
+                    v-model="inventario.placeDescription"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -71,7 +64,7 @@
               <b-col sm="12" md="3">
                 <b-form-group label="Nro Patrimônio:" class="my-3">
                   <b-form-input
-                    v-model="inventario.nroPatrimonio"
+                    v-model="inventario.inventoryNumber"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -79,7 +72,7 @@
               <b-col sm="12" md="9">
                 <b-form-group label="Nome do Item:" class="my-3">
                   <b-form-input
-                    v-model="inventario.nomeItem"
+                    v-model="inventario.name"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -87,7 +80,7 @@
               <b-col sm="12" md="4">
                 <b-form-group label="Marca:" class="my-3">
                   <b-form-input
-                    v-model="inventario.marca"
+                    v-model="inventario.brand"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -95,7 +88,7 @@
               <b-col sm="12" md="4">
                 <b-form-group label="Modelo:" class="my-3">
                   <b-form-input
-                    v-model="inventario.modelo"
+                    v-model="inventario.model"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -103,7 +96,7 @@
               <b-col sm="12" md="4">
                 <b-form-group label="Nro Série:" class="my-3">
                   <b-form-input
-                    v-model="inventario.nroSerie"
+                    v-model="inventario.serialNumber"
                     type="text"
                   ></b-form-input>
                 </b-form-group>
@@ -113,7 +106,7 @@
                   <b-form-select
                     id="categoria"
                     name="categoria"
-                    v-model="inventario.idCategoria"
+                    v-model="inventario.category"
                   >
                     <b-form-select-option :value="null"
                       >Selecione uma categoria</b-form-select-option
@@ -121,9 +114,9 @@
                     <b-form-select-option
                       v-for="(categoria, idx) in categorias"
                       :key="idx"
-                      :value="categoria.id"
+                      :value="categoria._id"
                     >
-                      {{ categoria.descricao }}
+                      {{ categoria.description }}
                     </b-form-select-option>
                   </b-form-select>
                 </b-form-group>
@@ -133,7 +126,7 @@
                   <b-form-select
                     id="EstadoConservacao"
                     name="EstadoConservacao"
-                    v-model="inventario.idEstadoConsercacao"
+                    v-model="inventario.conservationState"
                   >
                     <b-form-select-option :value="null"
                       >Selecione uma categoria</b-form-select-option
@@ -155,7 +148,7 @@
                   <b-form-select
                     id="ausenciaEtiquetas"
                     name="ausenciaEtiquetas"
-                    v-model="inventario.idAusenciaEtiquetas"
+                    v-model="inventario.tagAbscence"
                   >
                     <b-form-select-option :value="null"
                       >Selecione uma categoria</b-form-select-option
@@ -168,16 +161,14 @@
               <b-col sm="12" md="6">
                 <b-form-group label="Situação do Item:" class="my-3">
                   <b-form-textarea
-                    v-model="inventario.situacaoItem"
+                    v-model="inventario.itemStatus"
                     type="text"
                   ></b-form-textarea>
                 </b-form-group>
               </b-col>
               <b-col sm="12" md="6">
                 <b-form-group label="Observação:" class="my-3">
-                  <b-form-textarea
-                    v-model="inventario.obsercacao"
-                  ></b-form-textarea>
+                  <b-form-textarea v-model="inventario.note"></b-form-textarea>
                 </b-form-group>
               </b-col>
               <b-col sm="12" md="12" class="d-flex justify-content-end">
@@ -207,6 +198,8 @@ import {
 } from "@/services";
 
 import Navbar from "../components/Navbar.vue";
+
+import moment from "moment";
 export default {
   name: "InventarioEdit",
   components: {
@@ -217,6 +210,7 @@ export default {
       inventario: {},
       setorAreas: [],
       categorias: [],
+      date: null,
     };
   },
   methods: {
@@ -255,17 +249,33 @@ export default {
         });
     },
     salvarInventario() {
-      inventarioService
-        .save(this.inventario)
-        .then(() => {
-          this.showSuccessNotification("Inventário incluído com sucesso.");
-          this.$router.push({
-            path: "/inventario",
+      if (this.inventario._id == undefined) {
+        this.inventario.date = this.date;
+        
+        inventarioService
+          .save(this.inventario)
+          .then(() => {
+            this.showSuccessNotification("Inventário incluído com sucesso.");
+            this.$router.push({
+              path: "/inventario",
+            });
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
           });
-        })
-        .catch((error) => {
-          this.showErrorNotification(error.response);
-        });
+      } else {
+        inventarioService
+          .put(this.inventario)
+          .then(() => {
+            this.showSuccessNotification("Inventário editado com sucesso.");
+            this.$router.push({
+              path: "/inventario",
+            });
+          })
+          .catch((error) => {
+            this.showErrorNotification(error.response);
+          });
+      }
     },
     cancelar() {
       this.$router.push({
@@ -292,6 +302,9 @@ export default {
 
     if (idInventario != undefined) {
       this.findInventarioById(idInventario);
+      this.date = moment(this.inventario.date).format("DD/MM/YYYY");
+    } else {
+      this.date = moment().format("DD/MM/YYYY");
     }
 
     this.findCategoria();

@@ -26,13 +26,13 @@
               empty-text="Não há inventários disponíveis."
             >
               <template v-slot:cell(actions)="row">
-                <b-button class="m-1" @click="editInventario(row.item.id)">
+                <b-button class="m-1" @click="editInventario(row.item._id)">
                   <b-icon icon="pencil-fill"></b-icon>
                 </b-button>
                 <b-button
                   class="m-1"
                   variant="danger"
-                  @click="deleteInventario(row.item.id)"
+                  @click="deleteInventario(row.item._id)"
                 >
                   <b-icon icon="trash"></b-icon>
                 </b-button>
@@ -63,12 +63,12 @@ export default {
           thStyle: { width: "15% !important" },
         },
         {
-          key: "registerNumber",
+          key: "inventoryNumber",
           label: "Patrimônio",
           thStyle: { width: "35% !important" },
         },
         {
-          key: "itemName",
+          key: "name",
           label: "Nome do Item",
           thStyle: { width: "50% !important" },
         },
@@ -83,7 +83,6 @@ export default {
       });
     },
     editInventario(idInventario) {
-      console.log(idInventario);
       this.$router.push({
         name: "InventarioEdit",
         params: {

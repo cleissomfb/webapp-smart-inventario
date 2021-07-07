@@ -20,11 +20,12 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
-// Import do VueX
-// import Vuex from "vuex";
-// Vue.use(Vuex);
-
+// Import store
 import { store } from "@/store";
+
+// Import moment.js
+import moment from "moment";
+Vue.use(moment);
 
 /* Vue Notification */
 import Notifications from "vue-notification";
